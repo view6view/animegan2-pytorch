@@ -2,13 +2,11 @@ import os
 import argparse
 
 from PIL import Image
-import numpy as np
 
 import torch
 from torchvision.transforms.functional import to_tensor, to_pil_image
 
 from model import Generator
-
 
 torch.backends.cudnn.enabled = False
 torch.backends.cudnn.benchmark = False
@@ -21,13 +19,14 @@ def load_image(image_path, x32=False):
     if x32:
         def to_32s(x):
             return 256 if x < 256 else x - x % 32
+
         w, h = img.size
         img = img.resize((to_32s(w), to_32s(h)))
 
     return img
 
 
-def test(args):
+def calc(args):
     device = args.device
     
     net = Generator()
@@ -54,7 +53,6 @@ def test(args):
 
 
 if __name__ == '__main__':
-
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--checkpoint',
@@ -74,7 +72,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--device',
         type=str,
-        default='cuda:0',
+        default="cuda:0" if torch.cuda.is_available() else "cpu",
     )
     parser.add_argument(
         '--upsample_align',
@@ -89,4 +87,4 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
     
-    test(args)
+    calc(args)
