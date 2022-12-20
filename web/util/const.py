@@ -1,0 +1,1 @@
+allow_image_types = ["jpg", "png", "bmp", "tiff"]
