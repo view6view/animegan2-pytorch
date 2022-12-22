@@ -57,7 +57,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--checkpoint',
         type=str,
-        default='./weights/pytorch/aniMegan2/paprika.pt',
+        default='./weights/pytorch/AnimeGAN2/paprika.pt',
     )
     parser.add_argument(
         '--input_dir', 
